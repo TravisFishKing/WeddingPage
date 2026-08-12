@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>King &amp; Hsuan | 金生，宇你相遇</title>
+<meta name="description" content="金宗頴 ＆ 陳萱宇 婚禮邀請 — 2026.11.01 台南歸仁 阿勇家漂亮莊園">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FAF8F2;
+    --ivory-deep:#F1EEE2;
+    --card:#FFFFFF;
+    --green-deep:#3C4C33;
+    --green-mid:#7E9370;
+    --green-pale:#E7ECDD;
+    --green-line:#B9C7A9;
+    --gold:#C2A968;
+    --ink:#2E3527;
+    --ink-soft:#5C6552;
+    --shadow: 0 20px 60px -25px rgba(46,53,39,0.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    font-weight:300;
+    line-height:1.8;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Noto Serif TC','Cormorant Garamond', serif;
+    color:var(--green-deep);
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+
+  .en{ font-family:'Cormorant Garamond', serif; }
+
+  a{ color:inherit; }
+  img{ display:block; width:100%; height:100%; object-fit:cover; }
+
+  ::selection{ background:var(--green-pale); color:var(--green-deep); }
+
+  /* ---------- Scroll progress ---------- */
+  .progress-bar{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--green-mid), var(--gold));
+    z-index:999; transition:width .1s linear;
+  }
+
+  /* ---------- Section nav dots (desktop) ---------- */
+  .dot-nav{
+    position:fixed; right:28px; top:50%; transform:translateY(-50%);
+    z-index:900; display:flex; flex-direction:column; gap:16px;
+  }
+  .dot-nav a{
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(60,76,51,.25);
+    display:block; position:relative;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .dot-nav a::after{
+    content:attr(data-label);
+    position:absolute; right:20px; top:50%; transform:translateY(-50%);
+    font-family:'Noto Serif TC', serif; font-size:.72rem; letter-spacing:.15em;
+    white-space:nowrap; color:var(--green-deep);
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .dot-nav a:hover::after{ opacity:1; }
+  .dot-nav a.active{ background:var(--green-deep); transform:scale(1.3); }
+  @media (max-width:900px){ .dot-nav{ display:none; } }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-stagger > *{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal-stagger.in > *{ opacity:1; transform:translateY(0); }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay:.05s; }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay:.18s; }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay:.31s; }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay:.44s; }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay:.57s; }
+  .reveal-stagger.in > *:nth-child(6){ transition-delay:.70s; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal, .reveal-stagger > *{ opacity:1 !important; transform:none !important; transition:none !important; }
+    .leaf-sway, .hero-bg img, .hero-title span{ animation:none !important; }
+  }
+
+  /* ---------- Leaf / olive branch divider ---------- */
+  .branch-divider{
+    display:flex; justify-content:center; align-items:center;
+    margin:0 auto; width:120px; opacity:.85;
+  }
+  .branch-divider svg{ width:100%; height:auto; }
+  .leaf-sway{ animation:sway 6s ease-in-out infinite; transform-origin:center; }
+  @keyframes sway{
+    0%,100%{ transform:rotate(-1.5deg); }
+    50%{ transform:rotate(1.5deg); }
+  }
+
+  .section-eyebrow{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    color:var(--green-mid); letter-spacing:.28em; text-transform:uppercase;
+    font-size:.82rem; text-align:center; margin-bottom:10px;
+  }
+  .section-title{
+    text-align:center; font-size:clamp(1.7rem, 4vw, 2.5rem); margin-bottom:6px;
+  }
+
+  section{ position:relative; padding:110px 24px; }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; height:100svh; min-height:600px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; padding:0;
+  }
+  .hero-bg{ position:absolute; inset:0; z-index:0; }
+  .hero-bg img{
+    width:100%; height:100%; object-fit:cover;
+    animation:kenburns 22s ease-in-out infinite alternate;
+    filter:saturate(.92);
+  }
+  @keyframes kenburns{
+    0%{ transform:scale(1) translate(0,0); }
+    100%{ transform:scale(1.12) translate(-1%,-2%); }
+  }
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(30,38,24,.35) 0%, rgba(30,38,24,.15) 38%, rgba(30,38,24,.55) 100%);
+  }
+  .hero-content{ position:relative; z-index:2; text-align:center; color:#fff; padding:0 20px; }
+  .hero-eyebrow{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    letter-spacing:.35em; text-transform:uppercase; font-size:.8rem;
+    opacity:0; animation:fadeUp 1s ease forwards .3s;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond', serif; font-weight:600;
+    font-size:clamp(3.2rem, 11vw, 7rem);
+    color:#fff; margin:14px 0 6px; letter-spacing:.02em;
+  }
+  .hero-title span{
+    display:inline-block; opacity:0; transform:translateY(18px);
+    animation:letterIn .7s ease forwards;
+  }
+  @keyframes letterIn{ to{ opacity:1; transform:translateY(0); } }
+  .hero-cn{
+    font-family:'Noto Serif TC', serif; font-size:clamp(1.1rem, 2.6vw, 1.6rem);
+    letter-spacing:.5em; text-indent:.5em; font-weight:500;
+    opacity:0; animation:fadeUp 1s ease forwards 1.6s;
+  }
+  .hero-date-pill{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:34px; padding:10px 26px; border:1px solid rgba(255,255,255,.55);
+    border-radius:999px; font-family:'Cormorant Garamond', serif; font-size:1.05rem;
+    letter-spacing:.15em;
+    opacity:0; animation:fadeUp 1s ease forwards 2s;
+  }
+  .hero-date-pill .dot{ width:4px; height:4px; border-radius:50%; background:var(--gold); }
+
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    z-index:2; color:#fff; text-align:center; font-family:'Cormorant Garamond', serif;
+    font-size:.8rem; letter-spacing:.25em; opacity:0; animation:fadeUp 1s ease forwards 2.4s;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px; background:rgba(255,255,255,.7); margin:10px auto 0;
+    animation:scrollLine 1.8s ease-in-out infinite;
+    transform-origin:top;
+  }
+  @keyframes scrollLine{
+    0%{ transform:scaleY(0); opacity:0; }
+    40%{ transform:scaleY(1); opacity:1; }
+    100%{ transform:scaleY(1); opacity:0; }
+  }
+
+  /* ================= INTRO ================= */
+  .intro{ max-width:760px; margin:0 auto; text-align:center; }
+  .intro p{ font-size:clamp(1rem, 1.6vw, 1.18rem); color:var(--ink-soft); margin-top:26px; }
+  .intro .names{
+    margin-top:34px; font-family:'Cormorant Garamond', serif; font-size:1.4rem;
+    color:var(--green-deep); letter-spacing:.08em;
+  }
+
+  /* ================= INFO CARD ================= */
+  .info-wrap{ max-width:920px; margin:0 auto; }
+  .info-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    background:var(--card); border-radius:28px; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .info-photo{ position:relative; min-height:340px; }
+  .info-body{ padding:52px 44px; display:flex; flex-direction:column; justify-content:center; gap:26px; }
+  .info-row{ display:flex; gap:18px; align-items:flex-start; }
+  .info-row .icon{
+    width:38px; height:38px; flex:none; border-radius:50%;
+    background:var(--green-pale); display:flex; align-items:center; justify-content:center;
+    color:var(--green-deep);
+  }
+  .info-row .label{ font-size:.76rem; letter-spacing:.18em; color:var(--green-mid); text-transform:uppercase; font-family:'Cormorant Garamond', serif; }
+  .info-row .value{ font-size:1.08rem; color:var(--ink); margin-top:3px; font-weight:400; }
+  .info-row .value small{ display:block; color:var(--ink-soft); font-size:.85rem; margin-top:4px; font-weight:300; }
+  .map-btn{
+    display:inline-flex; align-items:center; gap:8px; margin-top:10px;
+    padding:10px 20px; border:1px solid var(--green-mid); border-radius:999px;
+    font-size:.85rem; letter-spacing:.05em; color:var(--green-deep); text-decoration:none;
+    transition:background .3s ease, color .3s ease;
+  }
+  .map-btn:hover{ background:var(--green-deep); color:#fff; }
+
+  @media (max-width:760px){
+    .info-grid{ grid-template-columns:1fr; }
+    .info-photo{ min-height:260px; order:-1; }
+    .info-body{ padding:38px 26px; }
+  }
+
+  /* ================= TIMELINE ================= */
+  .timeline-wrap{ max-width:900px; margin:60px auto 0; position:relative; }
+  .timeline{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; }
+  .timeline::before{
+    content:''; position:absolute; top:20px; left:0; right:0; height:1px;
+    background:var(--green-line);
+  }
+  .t-item{ position:relative; text-align:center; padding:0 10px; }
+  .t-dot{
+    width:11px; height:11px; border-radius:50%; background:var(--ivory);
+    border:2px solid var(--green-mid); margin:0 auto 20px; position:relative; z-index:2;
+    transition:background .4s ease, transform .4s ease;
+  }
+  .t-item.in .t-dot{ background:var(--green-deep); transform:scale(1.15); }
+  .t-time{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--green-deep); letter-spacing:.03em; }
+  .t-label{ font-size:.88rem; color:var(--ink-soft); margin-top:6px; }
+
+  @media (max-width:700px){
+    .timeline{ grid-template-columns:1fr; gap:34px; }
+    .timeline::before{ top:0; bottom:0; left:20px; right:auto; width:1px; height:auto; }
+    .t-item{ display:flex; align-items:center; gap:18px; text-align:left; padding:0; }
+    .t-dot{ margin:0; }
+  }
+
+  /* ================= GALLERY ================= */
+  .gallery{
+    max-width:1180px; margin:56px auto 0;
+    display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:130px; gap:14px;
+  }
+  .g-item{ overflow:hidden; position:relative; border-radius:14px; }
+  .g-item img{ transition:transform 1s cubic-bezier(.2,.7,.2,1); }
+  .g-item:hover img{ transform:scale(1.07); }
+  .g1{ grid-column:1/4; grid-row:1/4; }
+  .g2{ grid-column:4/7; grid-row:1/3; }
+  .g3{ grid-column:4/6; grid-row:3/6; }
+  .g4{ grid-column:6/7; grid-row:3/5; }
+  .g5{ grid-column:1/3; grid-row:4/6; }
+  .g6{ grid-column:3/4; grid-row:4/6; }
+
+  @media (max-width:820px){
+    .gallery{ grid-template-columns:repeat(2,1fr); grid-auto-rows:220px; }
+    .g1,.g2,.g3,.g4,.g5,.g6{ grid-column:auto; grid-row:auto; }
+  }
+
+  /* ================= FAMILY ================= */
+  .family-wrap{ max-width:760px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+  .family-card{
+    background:var(--card); border-radius:20px; padding:38px 30px; text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .family-card .role{ font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--green-mid); letter-spacing:.15em; font-size:.85rem; }
+  .family-card .who{ margin-top:14px; font-size:1.05rem; color:var(--ink); }
+  .family-card .who b{ font-weight:500; color:var(--green-deep); }
+  @media (max-width:600px){ .family-wrap{ grid-template-columns:1fr; } }
+
+  .couple-line{ text-align:center; margin-top:44px; font-family:'Noto Serif TC', serif; font-size:1.15rem; color:var(--green-deep); }
+
+  /* ================= SEATING ================= */
+  .seat-wrap{
+    max-width:560px; margin:0 auto; background:var(--card); border-radius:24px;
+    padding:48px 38px; box-shadow:var(--shadow); text-align:center;
+  }
+  .seat-form{ display:flex; gap:10px; margin-top:26px; }
+  .seat-form input{
+    flex:1; padding:14px 18px; border-radius:999px; border:1px solid var(--green-line);
+    font-family:'Noto Sans TC', sans-serif; font-size:.95rem; background:var(--ivory);
+    outline:none; transition:border-color .3s ease; min-width:0;
+  }
+  .seat-form input:focus{ border-color:var(--green-deep); }
+  .seat-form button{
+    padding:14px 26px; border-radius:999px; border:none; background:var(--green-deep);
+    color:#fff; font-size:.9rem; letter-spacing:.05em; cursor:pointer;
+    transition:background .3s ease, transform .2s ease; flex:none;
+  }
+  .seat-form button:hover{ background:var(--green-mid); }
+  .seat-form button:active{ transform:scale(.96); }
+  .seat-result{
+    margin-top:22px; min-height:26px; font-size:1.05rem; color:var(--green-deep);
+    opacity:0; transform:translateY(6px); transition:opacity .4s ease, transform .4s ease;
+  }
+  .seat-result.show{ opacity:1; transform:translateY(0); }
+  .seat-result .table-num{ font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:600; }
+  .seat-hint{ margin-top:14px; font-size:.8rem; color:var(--ink-soft); }
+
+  /* ================= FAQ ================= */
+  .faq-wrap{ max-width:700px; margin:0 auto; }
+  .faq-item{ border-bottom:1px solid var(--green-line); }
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    padding:24px 4px; cursor:pointer; font-size:1.02rem; color:var(--green-deep);
+    font-family:'Noto Serif TC', serif; font-weight:500;
+  }
+  .faq-q .plus{ flex:none; width:22px; height:22px; position:relative; }
+  .faq-q .plus::before, .faq-q .plus::after{
+    content:''; position:absolute; background:var(--green-deep); top:50%; left:50%;
+    transform:translate(-50%,-50%); transition:transform .35s ease, opacity .35s ease;
+  }
+  .faq-q .plus::before{ width:14px; height:1px; }
+  .faq-q .plus::after{ width:1px; height:14px; }
+  .faq-item.open .plus::after{ transform:translate(-50%,-50%) rotate(90deg); opacity:0; }
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .5s ease, padding .5s ease;
+    color:var(--ink-soft); font-size:.95rem; padding:0 4px;
+  }
+  .faq-item.open .faq-a{ max-height:200px; padding-bottom:24px; }
+
+  /* ================= FOOTER ================= */
+  .footer{ text-align:center; padding:90px 24px 60px; background:var(--green-deep); color:#EFEFE6; }
+  .footer h2{ color:#fff; font-size:clamp(1.6rem,3.6vw,2.3rem); margin-top:18px; }
+  .footer p{ margin-top:14px; color:#D9DECB; font-size:.95rem; }
+  .footer .foot-date{ margin-top:26px; font-family:'Cormorant Garamond', serif; letter-spacing:.2em; font-size:1rem; color:#fff; }
+  .footer .credit{ margin-top:60px; font-size:.75rem; color:#9AA787; letter-spacing:.05em; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="dot-nav" id="dotNav">
+  <a href="#hero" data-label="首頁" class="active"></a>
+  <a href="#info" data-label="婚禮資訊"></a>
+  <a href="#timeline" data-label="流程"></a>
+  <a href="#gallery" data-label="相簿"></a>
+  <a href="#family" data-label="家族"></a>
+  <a href="#seating" data-label="座位查詢"></a>
+  <a href="#faq" data-label="Q&amp;A"></a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"><img src="images/couple-beach-sunset.jpg" alt="金宗頴與陳萱宇 夕陽沙灘"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Wedding Invitation</p>
+    <h1 class="hero-title en" id="heroTitle">King &amp; Hsuan</h1>
+    <p class="hero-cn">金生，宇你相遇</p>
+    <div class="hero-date-pill">
+      <span>2026.11.01</span><span class="dot"></span><span>SUNDAY</span><span class="dot"></span><span>12:30</span>
+    </div>
+  </div>
+  <div class="scroll-cue">向下滑動<br>開啟這段故事<div class="line"></div></div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section id="story">
+  <div class="intro reveal">
+    <p class="section-eyebrow">Our Story</p>
+    <h2 class="section-title">給最重要的你</h2>
+    <div class="branch-divider">
+      <svg viewBox="0 0 120 30" fill="none" class="leaf-sway">
+        <path d="M2 15 C 30 5, 90 5, 118 15" stroke="#B9C7A9" stroke-width="1.2"/>
+        <ellipse cx="24" cy="10" rx="6" ry="3" fill="#9CB08A" transform="rotate(-25 24 10)"/>
+        <ellipse cx="46" cy="7" rx="6" ry="3" fill="#9CB08A" transform="rotate(-10 46 7)"/>
+        <ellipse cx="70" cy="7" rx="6" ry="3" fill="#9CB08A" transform="rotate(10 70 7)"/>
+        <ellipse cx="94" cy="10" rx="6" ry="3" fill="#9CB08A" transform="rotate(25 94 10)"/>
+      </svg>
+    </div>
+    <p>我們是宗頴與萱宇。從相遇、相知，到決定牽起彼此的手，走進婚姻——這一路上的風景，最想與最重要的你們分享。</p>
+    <p>11 月的台南歸仁，陽光正好，願您能撥空前來，陪我們一起把這一天，變成我們共同的永遠。</p>
+    <p class="names en">King Chin &amp; Hsuan Chen</p>
+  </div>
+</section>
+
+<!-- ============ INFO ============ -->
+<section id="info">
+  <p class="section-eyebrow reveal">Wedding Day</p>
+  <h2 class="section-title reveal">婚禮資訊</h2>
+  <div class="info-wrap" style="margin-top:50px;">
+    <div class="info-grid reveal">
+      <div class="info-photo"><img src="images/couple-sunset-trees.jpg" alt="金宗頴與陳萱宇 林間夕陽"></div>
+      <div class="info-body">
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <div class="label">Date</div>
+            <div class="value">2026 年 11 月 1 日 星期日</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          </div>
+          <div>
+            <div class="label">Time</div>
+            <div class="value">中午 12:30 婚宴開始<small>建議提前於 12:00 入席報到</small></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          </div>
+          <div>
+            <div class="label">Venue</div>
+            <div class="value">台南歸仁・阿勇家漂亮莊園
+              <small>地中海紅白莊園建築，南法蔚藍海岸風情</small>
+            </div>
+            <a class="map-btn" href="https://maps.app.goo.gl/4LCA6LRZiGpNpNrm9" target="_blank" rel="noopener">
+              查看地圖
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TIMELINE ============ -->
+  <div class="timeline-wrap" id="timeline">
+    <div class="timeline">
+      <div class="t-item"><div class="t-dot"></div><div class="t-time en">12:00</div><div class="t-label">賓客入席</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-time en">12:20</div><div class="t-label">開席</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-time en">12:30</div><div class="t-label">婚宴活動開始</div></div>
+      <div class="t-item"><div class="t-dot"></div><div class="t-time en">15:00</div><div class="t-label">賓客散會</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <p class="section-eyebrow reveal">Memories</p>
+  <h2 class="section-title reveal">我們的相簿</h2>
+  <div class="gallery reveal-stagger">
+    <div class="g-item g1"><img src="images/couple-park-bench.jpg" alt="公園長椅"></div>
+    <div class="g-item g2"><img src="images/couple-market-backtoback.jpg" alt="老街市場"></div>
+    <div class="g-item g3"><img src="images/couple-chinese-qunkwa.jpg" alt="中式裙掛"></div>
+    <div class="g-item g4"><img src="images/bride-heart-glasses.jpg" alt="愛心墨鏡"></div>
+    <div class="g-item g5"><img src="images/couple-sunset-trees.jpg" alt="夕陽林間"></div>
+    <div class="g-item g6"><img src="images/couple-beach-sunset.jpg" alt="沙灘夕陽"></div>
+  </div>
+</section>
+
+<!-- ============ FAMILY ============ -->
+<section id="family">
+  <p class="section-eyebrow reveal">With Our Families</p>
+  <h2 class="section-title reveal">家族與新人</h2>
+  <div class="family-wrap reveal-stagger" style="margin-top:50px;">
+    <div class="family-card">
+      <div class="role">男方主婚人</div>
+      <div class="who"><b>金文祥</b> ・ <b>吳婉敏</b></div>
+    </div>
+    <div class="family-card">
+      <div class="role">女方主婚人</div>
+      <div class="who"><b>陳信名</b> ・ <b>胡玉珮</b></div>
+    </div>
+  </div>
+  <p class="couple-line reveal">金宗頴　・　陳萱宇</p>
+</section>
+
+<!-- ============ SEATING ============ -->
+<section id="seating">
+  <p class="section-eyebrow reveal">Find Your Seat</p>
+  <h2 class="section-title reveal">座位查詢</h2>
+  <div class="seat-wrap reveal" style="margin-top:46px;">
+    <p style="color:var(--ink-soft); font-size:.92rem;">請輸入您的姓名，查詢當天的桌次</p>
+    <div class="seat-form">
+      <input type="text" id="seatInput" placeholder="請輸入姓名，例如：王小明">
+      <button id="seatBtn">查詢</button>
+    </div>
+    <div class="seat-result" id="seatResult"></div>
+    <p class="seat-hint">若查無資料，請與新人或現場服務台聯繫</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <p class="section-eyebrow reveal">Q &amp; A</p>
+  <h2 class="section-title reveal">常見問題</h2>
+  <div class="faq-wrap reveal" style="margin-top:46px;">
+    <div class="faq-item open">
+      <div class="faq-q"><span>莊園內是否有停車場？</span><span class="plus"></span></div>
+      <div class="faq-a">有的，莊園內備有 60 個停車位；若內部車位已滿，莊園周遭路邊亦可停車。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>有什麼服裝要求嗎？</span><span class="plus"></span></div>
+      <div class="faq-a">沒有特別的 dress code，歡迎大家依場館風格自由穿搭。莊園以地中海紅白房舍，與南法蔚藍海岸的屋瓦為設計概念，很適合輕鬆自在的渡假風穿著。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="branch-divider" style="margin-bottom:8px;">
+    <svg viewBox="0 0 120 30" fill="none" class="leaf-sway">
+      <path d="M2 15 C 30 5, 90 5, 118 15" stroke="#EFEFE6" stroke-width="1"/>
+      <ellipse cx="24" cy="10" rx="6" ry="3" fill="none" stroke="#EFEFE6" stroke-width="1" transform="rotate(-25 24 10)"/>
+      <ellipse cx="46" cy="7" rx="6" ry="3" fill="none" stroke="#EFEFE6" stroke-width="1" transform="rotate(-10 46 7)"/>
+      <ellipse cx="70" cy="7" rx="6" ry="3" fill="none" stroke="#EFEFE6" stroke-width="1" transform="rotate(10 70 7)"/>
+      <ellipse cx="94" cy="10" rx="6" ry="3" fill="none" stroke="#EFEFE6" stroke-width="1" transform="rotate(25 94 10)"/>
+    </svg>
+  </div>
+  <p class="en" style="letter-spacing:.3em; font-size:.8rem; color:#B7C1A2;">THANK YOU</p>
+  <h2>期待與您相聚</h2>
+  <p>金宗頴　＆　陳萱宇</p>
+  <p class="foot-date en">2026.11.01 · 台南歸仁 阿勇家漂亮莊園</p>
+  <p class="credit">King &amp; Hsuan Wedding</p>
+</footer>
+
+<script>
+  // ---------- Hero letter animation ----------
+  (function(){
+    var el = document.getElementById('heroTitle');
+    var text = el.textContent;
+    el.textContent = '';
+    text.split('').forEach(function(ch, i){
+      var span = document.createElement('span');
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      span.style.animationDelay = (0.5 + i * 0.045) + 's';
+      el.appendChild(span);
+    });
+  })();
+
+  // ---------- Scroll progress bar ----------
+  var progressBar = document.getElementById('progressBar');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive:true });
+  updateProgress();
+
+  // ---------- Reveal on scroll ----------
+  var revealEls = document.querySelectorAll('.reveal, .reveal-stagger, .t-item');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.18 });
+  revealEls.forEach(function(el){ io.observe(el); });
+
+  // ---------- Dot nav active state ----------
+  var navLinks = document.querySelectorAll('.dot-nav a');
+  var sections = Array.from(navLinks).map(function(a){
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  function updateNav(){
+    var pos = window.scrollY + window.innerHeight * 0.4;
+    var current = 0;
+    sections.forEach(function(sec, i){
+      if(sec.offsetTop <= pos) current = i;
+    });
+    navLinks.forEach(function(a, i){
+      a.classList.toggle('active', i === current);
+    });
+  }
+  document.addEventListener('scroll', updateNav, { passive:true });
+  updateNav();
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* =====================================================================
+     座位查詢資料 Seating Data
+     ---------------------------------------------------------------------
+     請將下方物件換成您實際的賓客與桌次資料，格式為：
+     "姓名": "桌次"
+     完成後把下面兩筆範例刪除即可。姓名比對會自動忽略頭尾空白。
+     ===================================================================== */
+  var seatData = {
+    "王小明": "A1 桌",
+    "陳小華": "B3 桌"
+    // "新增姓名": "桌次",
+  };
+
+  var seatInput = document.getElementById('seatInput');
+  var seatBtn = document.getElementById('seatBtn');
+  var seatResult = document.getElementById('seatResult');
+
+  function doSeatSearch(){
+    var name = seatInput.value.trim();
+    seatResult.classList.remove('show');
+    if(!name){
+      seatResult.textContent = '請輸入姓名';
+      requestAnimationFrame(function(){ seatResult.classList.add('show'); });
+      return;
+    }
+    var table = seatData[name];
+    setTimeout(function(){
+      if(table){
+        seatResult.innerHTML = name + ' ，您的座位在 <span class="table-num en">' + table + '</span>';
+      } else {
+        seatResult.textContent = '查無「' + name + '」的座位資料，請與服務台聯繫 🙏';
+      }
+      seatResult.classList.add('show');
+    }, 120);
+  }
+  seatBtn.addEventListener('click', doSeatSearch);
+  seatInput.addEventListener('keydown', function(e){ if(e.key === 'Enter') doSeatSearch(); });
+</script>
+</body>
+</html>

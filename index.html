@@ -136,6 +136,13 @@
     0%{ transform:scale(1) translate(0,0); }
     100%{ transform:scale(1.12) translate(-1%,-2%); }
   }
+  @media (max-width:700px){
+    .hero-bg img{ animation:kenburns-mobile 22s ease-in-out infinite alternate; object-position:center top; }
+  }
+  @keyframes kenburns-mobile{
+    0%{ transform:scale(1) translate(0,0); }
+    100%{ transform:scale(1.05) translate(0,1%); }
+  }
   .hero-scrim{
     position:absolute; inset:0; z-index:1;
     background:linear-gradient(180deg, rgba(30,38,24,.35) 0%, rgba(30,38,24,.15) 38%, rgba(30,38,24,.55) 100%);

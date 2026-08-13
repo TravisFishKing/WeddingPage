@@ -354,9 +354,7 @@
 
 <div class="progress-bar" id="progressBar"></div>
 
-<iframe id="bgMusic" title="background music" style="position:fixed; left:-9999px; top:-9999px; width:1px; height:1px; border:0;"
-  src="https://www.youtube.com/embed/i752DxeIi7Q?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=i752DxeIi7Q&amp;controls=0&amp;disablekb=1&amp;fs=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1"
-  allow="autoplay; encrypted-media"></iframe>
+<audio id="bgMusic" src="Music.mp3" loop autoplay muted playsinline></audio>
 
 <nav class="dot-nav" id="dotNav">
   <a href="#hero" data-label="首頁" class="active"></a>
@@ -604,13 +602,11 @@
 
   // ---------- Background music: unmute silently on first interaction ----------
   (function(){
-    var frame = document.getElementById('bgMusic');
-    function post(func){
-      frame.contentWindow.postMessage(JSON.stringify({ event:'command', func:func, args:[] }), '*');
-    }
+    var audio = document.getElementById('bgMusic');
     function unmuteOnFirstInteraction(){
-      post('unMute');
-      frame.contentWindow.postMessage(JSON.stringify({ event:'command', func:'setVolume', args:[70] }), '*');
+      audio.muted = false;
+      audio.volume = 0.7;
+      audio.play();
       ['click','touchstart','keydown','scroll'].forEach(function(type){
         document.removeEventListener(type, unmuteOnFirstInteraction);
       });

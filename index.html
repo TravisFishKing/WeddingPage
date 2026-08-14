@@ -258,23 +258,46 @@
     .t-dot{ margin:0; }
   }
 
-  /* ================= GALLERY (masonry, full photo shown, no cropping) ================= */
-  .gallery{
-    max-width:1080px; margin:56px auto 0;
-    column-count:3; column-gap:16px;
+  /* ================= GALLERY (carousel) ================= */
+  .gallery{ max-width:760px; margin:56px auto 0; position:relative; }
+  .gallery-track{
+    display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    border-radius:22px; box-shadow:var(--shadow); background:var(--card);
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
+  .gallery-track::-webkit-scrollbar{ display:none; }
   .g-item{
-    break-inside:avoid; margin-bottom:16px; border-radius:14px; overflow:hidden;
-    box-shadow:var(--shadow); background:var(--card);
+    flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always;
+    aspect-ratio:4/3; overflow:hidden;
   }
-  .g-item img{
-    width:100%; height:auto; display:block;
-    transition:transform 1s cubic-bezier(.2,.7,.2,1);
-  }
-  .g-item:hover img{ transform:scale(1.04); }
+  .g-item img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-  @media (max-width:820px){ .gallery{ column-count:2; column-gap:12px; } .g-item{ margin-bottom:12px; } }
-  @media (max-width:520px){ .gallery{ column-count:1; max-width:420px; } }
+  .gallery-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:42px; height:42px; border-radius:50%; border:none; cursor:pointer;
+    background:rgba(255,255,255,.9); color:var(--green-deep); box-shadow:var(--shadow);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .25s ease, transform .25s ease;
+  }
+  .gallery-arrow:hover{ background:#fff; transform:translateY(-50%) scale(1.06); }
+  .gallery-arrow.prev{ left:-14px; }
+  .gallery-arrow.next{ right:-14px; }
+  .gallery-arrow svg{ width:18px; height:18px; }
+
+  .gallery-dots{ display:flex; justify-content:center; gap:9px; margin-top:20px; }
+  .gallery-dots button{
+    width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer;
+    background:var(--green-line); transition:background .3s ease, transform .3s ease;
+  }
+  .gallery-dots button.active{ background:var(--green-deep); transform:scale(1.25); }
+
+  @media (max-width:640px){
+    .gallery{ max-width:92vw; }
+    .g-item{ aspect-ratio:4/5; }
+    .gallery-arrow{ width:36px; height:36px; }
+    .gallery-arrow.prev{ left:6px; }
+    .gallery-arrow.next{ right:6px; }
+  }
 
   /* ================= FAMILY ================= */
   .family-wrap{ max-width:760px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:30px; }
@@ -467,14 +490,23 @@
 <section id="gallery">
   <p class="section-eyebrow reveal">Memories</p>
   <h2 class="section-title reveal">我們的相簿</h2>
-  <div class="gallery reveal-stagger">
-    <div class="g-item"><img src="images/couple-park-bench.jpg" alt="公園長椅"></div>
-    <div class="g-item"><img src="images/couple-market-backtoback.jpg" alt="老街市場"></div>
-    <div class="g-item"><img src="images/couple-sunset-trees.jpg" alt="夕陽林間"></div>
-    <div class="g-item"><img src="images/couple-chinese-qunkwa.jpg" alt="中式裙掛"></div>
-    <div class="g-item"><img src="images/bride-heart-glasses.jpg" alt="愛心墨鏡"></div>
-    <div class="g-item"><img src="images/couple-beach-sunset.jpg" alt="沙灘夕陽"></div>
+  <div class="gallery reveal" id="galleryCarousel">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="g-item"><img src="images/couple-park-bench.jpg" alt="公園長椅" loading="lazy"></div>
+      <div class="g-item"><img src="images/couple-market-backtoback.jpg" alt="老街市場" loading="lazy"></div>
+      <div class="g-item"><img src="images/couple-sunset-trees.jpg" alt="夕陽林間" loading="lazy"></div>
+      <div class="g-item"><img src="images/couple-chinese-qunkwa.jpg" alt="中式裙掛" loading="lazy"></div>
+      <div class="g-item"><img src="images/bride-heart-glasses.jpg" alt="愛心墨鏡" loading="lazy"></div>
+      <div class="g-item"><img src="images/couple-beach-sunset.jpg" alt="沙灘夕陽" loading="lazy"></div>
+    </div>
+    <button class="gallery-arrow prev" id="galleryPrev" aria-label="上一張">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="gallery-arrow next" id="galleryNext" aria-label="下一張">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
   </div>
+  <div class="gallery-dots" id="galleryDots"></div>
 </section>
 
 <!-- ============ FAMILY ============ -->
@@ -606,6 +638,65 @@
       if(!wasOpen) item.classList.add('open');
     });
   });
+
+  // ---------- Gallery carousel ----------
+  (function(){
+    var track = document.getElementById('galleryTrack');
+    var slides = Array.from(track.children);
+    var dotsWrap = document.getElementById('galleryDots');
+    var prevBtn = document.getElementById('galleryPrev');
+    var nextBtn = document.getElementById('galleryNext');
+    var current = 0;
+    var timer = null;
+
+    slides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 張');
+      if(i === 0) dot.classList.add('active');
+      dot.addEventListener('click', function(){ goTo(i); resetTimer(); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = Array.from(dotsWrap.children);
+
+    function goTo(i){
+      current = (i + slides.length) % slides.length;
+      track.scrollTo({ left: current * track.clientWidth, behavior:'smooth' });
+      dots.forEach(function(d, di){ d.classList.toggle('active', di === current); });
+    }
+
+    function startTimer(){
+      timer = setInterval(function(){ goTo(current + 1); }, 4500);
+    }
+    function resetTimer(){
+      clearInterval(timer);
+      startTimer();
+    }
+
+    prevBtn.addEventListener('click', function(){ goTo(current - 1); resetTimer(); });
+    nextBtn.addEventListener('click', function(){ goTo(current + 1); resetTimer(); });
+
+    var scrollTimeout;
+    track.addEventListener('scroll', function(){
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(function(){
+        var i = Math.round(track.scrollLeft / track.clientWidth);
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        dots.forEach(function(d, di){ d.classList.toggle('active', di === current); });
+      }, 100);
+    }, { passive:true });
+
+    ['pointerdown','touchstart'].forEach(function(type){
+      track.addEventListener(type, resetTimer, { passive:true });
+    });
+
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden) clearInterval(timer); else resetTimer();
+    });
+
+    window.addEventListener('resize', function(){ goTo(current); });
+
+    startTimer();
+  })();
 
   // ---------- Background music: unmute silently on first interaction ----------
   (function(){

@@ -372,6 +372,77 @@
   }
   .faq-item.open .faq-a{ max-height:200px; padding-bottom:24px; }
 
+  /* ================= SEATING CHART ================= */
+  .seating-search{ max-width:420px; margin:0 auto 54px; position:relative; z-index:5; }
+  .search-wrap{ position:relative; }
+  .search-box{
+    display:flex; align-items:center; gap:10px;
+    background:var(--card); border:1px solid var(--green-line); border-radius:999px;
+    padding:13px 24px; box-shadow:var(--shadow); position:relative; z-index:2;
+  }
+  .search-box svg{ flex:none; width:18px; height:18px; color:var(--green-mid); }
+  .search-box input{
+    flex:1; border:none; outline:none; background:transparent;
+    font-family:'Noto Sans TC', sans-serif; font-size:1rem; color:var(--ink);
+  }
+  .search-box input::placeholder{ color:var(--ink-soft); }
+  .search-suggestions{
+    display:none; position:absolute; left:0; right:0; top:calc(100% + 10px);
+    background:var(--card); border-radius:18px; box-shadow:var(--shadow);
+    max-height:260px; overflow-y:auto; z-index:15; padding:8px;
+  }
+  .search-suggestions.open{ display:block; }
+  .search-suggestions button{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:11px 14px; border-radius:12px; font-size:.95rem; color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif;
+    transition:background .2s ease, color .2s ease;
+  }
+  .search-suggestions button .s-table{
+    flex:none; font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:.8rem; color:var(--green-mid);
+  }
+  .search-suggestions button:hover, .search-suggestions button:focus{
+    background:var(--green-pale); color:var(--green-deep); outline:none;
+  }
+  .search-empty{
+    text-align:center; margin-top:14px; font-size:.88rem; color:var(--ink-soft);
+    font-style:italic; font-family:'Cormorant Garamond', serif;
+  }
+
+  .seating-grid{ max-width:960px; margin:0 auto; }
+  .seating-pairs{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+
+  .table-card{
+    background:var(--card); border-radius:18px; padding:26px 26px 22px;
+    box-shadow:var(--shadow);
+    transition:opacity .35s ease, transform .35s ease, box-shadow .35s ease;
+  }
+  .table-card.is-main{ max-width:380px; margin:0 auto 34px; border-top:3px solid var(--gold); }
+  .table-header{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+    padding-bottom:12px; margin-bottom:14px; border-bottom:1px solid var(--green-pale);
+  }
+  .table-card.is-main .table-header{ justify-content:center; gap:12px; }
+  .table-name{
+    font-family:'Noto Serif TC', serif; font-weight:600; color:var(--green-deep); font-size:1.08rem;
+  }
+  .table-card.is-main .table-name{ font-size:1.3rem; }
+  .guest-list{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:7px 16px; }
+  .guest-list li{
+    font-size:.92rem; color:var(--ink-soft); padding:3px 6px; border-radius:6px;
+    transition:background .25s ease, color .25s ease, font-weight .25s ease;
+  }
+  .guest-list li.match{ background:var(--green-pale); color:var(--green-deep); font-weight:600; }
+
+  .table-card.no-match{ opacity:.22; transform:scale(.97); }
+  .table-card.has-match{ box-shadow:0 0 0 2px var(--gold), var(--shadow); }
+
+  @media (max-width:640px){
+    .seating-pairs{ grid-template-columns:1fr; }
+  }
+
   /* ================= FOOTER ================= */
   .footer{ text-align:center; padding:90px 24px 60px; background:var(--green-deep); color:#EFEFE6; }
   .footer h2{ color:#fff; font-size:clamp(1.6rem,3.6vw,2.3rem); margin-top:18px; }
@@ -392,6 +463,7 @@
   <a href="#timeline" data-label="流程"></a>
   <a href="#family" data-label="家族"></a>
   <a href="#gallery" data-label="相簿"></a>
+  <a href="#seating" data-label="桌位表"></a>
   <a href="#faq" data-label="Q&amp;A"></a>
 </nav>
 
@@ -540,6 +612,215 @@
   <div class="gallery-dots" id="galleryDots"></div>
 </section>
 
+<!-- ============ SEATING CHART ============ -->
+<!--
+  桌位表編輯說明：
+  1. 每一桌是一個 <div class="table-card">，桌名寫在 .table-name 裡（例如「1 桌」），直接改文字即可。
+  2. 賓客姓名放在 <ul class="guest-list"> 裡的每個 <li>，要「增加」賓客就複製一行 <li>姓名</li>，
+     要「減少」就整行刪除；每桌右上角的人數會由程式自動算好，不用手動改。
+  3. 主桌是最上面帶 is-main 的那張卡片；1 桌 ~ 10 桌放在 .seating-pairs 容器裡，
+     依序排列會自動排成「1桌｜2桌／3桌｜4桌…」的兩欄版面。
+  4. 想調整桌數，直接複製整個 <div class="table-card">…</div> 區塊增減即可。
+-->
+<section id="seating">
+  <p class="section-eyebrow reveal">Seating Chart</p>
+  <h2 class="section-title reveal">桌位表</h2>
+
+  <div class="seating-search reveal">
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="guestSearch" placeholder="輸入姓名查詢座位" autocomplete="off">
+      </div>
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    <p class="search-empty" id="searchEmpty" style="display:none;">查無此賓客，請確認姓名或聯絡新人</p>
+  </div>
+
+  <div class="seating-grid reveal-stagger" id="seatingGrid">
+    <div class="table-card is-main">
+      <div class="table-header">
+        <span class="table-name">主桌</span>
+      </div>
+      <ul class="guest-list">
+        <li>金宗頴</li>
+        <li>陳萱宇</li>
+        <li>金文祥</li>
+        <li>吳婉敏</li>
+        <li>陳信名</li>
+        <li>胡玉珮</li>
+        <li>賓客姓名 7</li>
+        <li>賓客姓名 8</li>
+      </ul>
+    </div>
+
+    <div class="seating-pairs">
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">1 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">2 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">3 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">4 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+          <li>賓客姓名 10</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">5 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">6 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+          <li>賓客姓名 10</li>
+          <li>賓客姓名 11</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">7 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">8 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">9 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>賓客姓名 1</li>
+          <li>賓客姓名 2</li>
+          <li>賓客姓名 3</li>
+          <li>賓客姓名 4</li>
+          <li>賓客姓名 5</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+          <li>賓客姓名 10</li>
+        </ul>
+      </div>
+      <div class="table-card">
+        <div class="table-header">
+          <span class="table-name">10 桌</span>
+        </div>
+        <ul class="guest-list">
+          <li>李尚軒</li>
+          <li>林晉毅 Jim</li>
+          <li>林晉毅 Jim</li>
+          <li>林以軒</li>
+          <li>李昀軒</li>
+          <li>賓客姓名 6</li>
+          <li>賓客姓名 7</li>
+          <li>賓客姓名 8</li>
+          <li>賓客姓名 9</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ FAQ ============ -->
 <section id="faq">
@@ -638,6 +919,81 @@
       if(!wasOpen) item.classList.add('open');
     });
   });
+
+  // ---------- Seating chart: autocomplete search ----------
+  (function(){
+    var input = document.getElementById('guestSearch');
+    var suggestions = document.getElementById('searchSuggestions');
+    var emptyMsg = document.getElementById('searchEmpty');
+
+    var allGuests = [];
+    document.querySelectorAll('#seatingGrid .table-card').forEach(function(card){
+      var tableName = card.querySelector('.table-name').textContent;
+      card.querySelectorAll('.guest-list li').forEach(function(li){
+        allGuests.push({ li:li, card:card, tableName:tableName, name:li.textContent });
+      });
+    });
+
+    function clearHighlight(){
+      document.querySelectorAll('#seatingGrid .table-card.has-match').forEach(function(c){ c.classList.remove('has-match'); });
+      document.querySelectorAll('#seatingGrid .guest-list li.match').forEach(function(l){ l.classList.remove('match'); });
+    }
+
+    function closeSuggestions(){
+      suggestions.classList.remove('open');
+      suggestions.innerHTML = '';
+    }
+
+    function selectGuest(guest){
+      clearHighlight();
+      guest.card.classList.add('has-match');
+      guest.li.classList.add('match');
+      guest.li.scrollIntoView({ behavior:'smooth', block:'center' });
+      input.value = guest.name;
+      closeSuggestions();
+      emptyMsg.style.display = 'none';
+    }
+
+    input.addEventListener('input', function(){
+      var q = input.value.trim();
+      if(q === ''){
+        closeSuggestions();
+        emptyMsg.style.display = 'none';
+        clearHighlight();
+        return;
+      }
+      var matches = allGuests.filter(function(g){ return g.name.indexOf(q) !== -1; });
+      if(matches.length === 0){
+        closeSuggestions();
+        emptyMsg.style.display = 'block';
+        return;
+      }
+      emptyMsg.style.display = 'none';
+      suggestions.innerHTML = '';
+      matches.slice(0, 30).forEach(function(g){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        var nameSpan = document.createElement('span');
+        nameSpan.textContent = g.name;
+        var tableSpan = document.createElement('span');
+        tableSpan.className = 's-table';
+        tableSpan.textContent = g.tableName;
+        btn.appendChild(nameSpan);
+        btn.appendChild(tableSpan);
+        btn.addEventListener('click', function(){ selectGuest(g); });
+        suggestions.appendChild(btn);
+      });
+      suggestions.classList.add('open');
+    });
+
+    document.addEventListener('click', function(evt){
+      if(!evt.target.closest('.search-wrap')) closeSuggestions();
+    });
+
+    input.addEventListener('keydown', function(evt){
+      if(evt.key === 'Escape') closeSuggestions();
+    });
+  })();
 
   // ---------- Gallery carousel ----------
   (function(){

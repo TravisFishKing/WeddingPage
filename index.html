@@ -268,9 +268,17 @@
   .gallery-track::-webkit-scrollbar{ display:none; }
   .g-item{
     flex:0 0 100%; scroll-snap-align:center; scroll-snap-stop:always;
-    aspect-ratio:4/3; overflow:hidden;
+    aspect-ratio:4/3; overflow:hidden; position:relative; background:var(--ivory-deep);
   }
-  .g-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .g-item::before{
+    content:''; position:absolute; inset:-14px; z-index:0;
+    background-image:var(--bg); background-size:cover; background-position:center;
+    filter:blur(26px) brightness(.72) saturate(1.05); transform:scale(1.06);
+  }
+  .g-item img{
+    position:relative; z-index:1;
+    width:100%; height:100%; object-fit:contain; display:block;
+  }
 
   .gallery-arrow{
     position:absolute; top:50%; transform:translateY(-50%); z-index:3;
@@ -284,12 +292,10 @@
   .gallery-arrow.next{ right:-14px; }
   .gallery-arrow svg{ width:18px; height:18px; }
 
-  .gallery-dots{ display:flex; justify-content:center; gap:9px; margin-top:20px; }
-  .gallery-dots button{
-    width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer;
-    background:var(--green-line); transition:background .3s ease, transform .3s ease;
-  }
-  .gallery-dots button.active{ background:var(--green-deep); transform:scale(1.25); }
+  .gallery-meta{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:22px; }
+  .gallery-progress{ width:180px; height:3px; border-radius:999px; background:var(--green-pale); overflow:hidden; }
+  .gallery-progress-bar{ height:100%; width:0%; background:var(--green-deep); border-radius:999px; transition:width .35s ease; }
+  .gallery-counter{ font-size:.9rem; letter-spacing:.12em; color:var(--green-mid); }
 
   @media (max-width:640px){
     .gallery{ max-width:92vw; }
@@ -496,8 +502,8 @@
         <ellipse cx="94" cy="10" rx="6" ry="3" fill="#9CB08A" transform="rotate(25 94 10)"/>
       </svg>
     </div>
-    <p>我們是宗頴與萱宇。從相遇、相知，到決定牽起彼此的手，走進婚姻——這一路上的風景，最想與最重要的你們分享。</p>
-    <p>11 月的台南歸仁，陽光正好，願您能撥空前來，陪我們一起把這一天，變成我們共同的永遠。</p>
+    <p>我們是宗頴與萱宇。從相遇、相知，到決定牽起彼此的手，走進婚姻。<br>這一路上的風景，想與最重要的你們分享。</p>
+    <p>11 月的台南歸仁，陽光正好，願您能撥空前來，<br>陪我們一起把這一天，變成我們共同的永遠。</p>
     <p class="names en">King &amp; Hsuan</p>
   </div>
 </section>
@@ -595,12 +601,36 @@
   <h2 class="section-title reveal">我們的相簿</h2>
   <div class="gallery reveal" id="galleryCarousel">
     <div class="gallery-track" id="galleryTrack">
-      <div class="g-item"><img src="images/couple-park-bench.jpg" alt="公園長椅" loading="lazy"></div>
-      <div class="g-item"><img src="images/couple-market-backtoback.jpg" alt="老街市場" loading="lazy"></div>
-      <div class="g-item"><img src="images/couple-sunset-trees.jpg" alt="夕陽林間" loading="lazy"></div>
-      <div class="g-item"><img src="images/couple-chinese-qunkwa.jpg" alt="中式裙掛" loading="lazy"></div>
-      <div class="g-item"><img src="images/bride-heart-glasses.jpg" alt="愛心墨鏡" loading="lazy"></div>
-      <div class="g-item"><img src="images/couple-beach-sunset.jpg" alt="沙灘夕陽" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/couple-park-bench.jpg')"><img src="images/couple-park-bench.jpg" alt="公園長椅" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/couple-market-backtoback.jpg')"><img src="images/couple-market-backtoback.jpg" alt="老街市場" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/couple-sunset-trees.jpg')"><img src="images/couple-sunset-trees.jpg" alt="夕陽林間" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/couple-chinese-qunkwa.jpg')"><img src="images/couple-chinese-qunkwa.jpg" alt="中式裙掛" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/bride-heart-glasses.jpg')"><img src="images/bride-heart-glasses.jpg" alt="愛心墨鏡" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0116-2500.jpg')"><img src="images/140375-0116-2500.jpg" alt="婚禮紀錄 01" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0145-2500.jpg')"><img src="images/140375-0145-2500.jpg" alt="婚禮紀錄 02" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0180-2500.jpg')"><img src="images/140375-0180-2500.jpg" alt="婚禮紀錄 03" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0203-2500.jpg')"><img src="images/140375-0203-2500.jpg" alt="婚禮紀錄 04" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0242-2500.jpg')"><img src="images/140375-0242-2500.jpg" alt="婚禮紀錄 05" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0263-2500.jpg')"><img src="images/140375-0263-2500.jpg" alt="婚禮紀錄 06" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0268-2500.jpg')"><img src="images/140375-0268-2500.jpg" alt="婚禮紀錄 07" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0295-2500.jpg')"><img src="images/140375-0295-2500.jpg" alt="婚禮紀錄 08" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0308-2500.jpg')"><img src="images/140375-0308-2500.jpg" alt="婚禮紀錄 09" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0336-2500.jpg')"><img src="images/140375-0336-2500.jpg" alt="婚禮紀錄 10" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/140375-0358-2500.jpg')"><img src="images/140375-0358-2500.jpg" alt="婚禮紀錄 11" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC00102.jpg')"><img src="images/DSC00102.jpg" alt="婚禮紀錄 12" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC00548.jpg')"><img src="images/DSC00548.jpg" alt="婚禮紀錄 13" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC00583.jpg')"><img src="images/DSC00583.jpg" alt="婚禮紀錄 14" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC00858.jpg')"><img src="images/DSC00858.jpg" alt="婚禮紀錄 15" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC00983.jpg')"><img src="images/DSC00983.jpg" alt="婚禮紀錄 16" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC01161.jpg')"><img src="images/DSC01161.jpg" alt="婚禮紀錄 17" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC01320.jpg')"><img src="images/DSC01320.jpg" alt="婚禮紀錄 18" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC01352.jpg')"><img src="images/DSC01352.jpg" alt="婚禮紀錄 19" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_4940.jpg')"><img src="images/DSC_4940.jpg" alt="婚禮紀錄 20" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_4994.jpg')"><img src="images/DSC_4994.jpg" alt="婚禮紀錄 21" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_5014.jpg')"><img src="images/DSC_5014.jpg" alt="婚禮紀錄 22" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_5028.jpg')"><img src="images/DSC_5028.jpg" alt="婚禮紀錄 23" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_5205.jpg')"><img src="images/DSC_5205.jpg" alt="婚禮紀錄 24" loading="lazy"></div>
+      <div class="g-item" style="--bg:url('images/DSC_5341.jpg')"><img src="images/DSC_5341.jpg" alt="婚禮紀錄 25" loading="lazy"></div>
     </div>
     <button class="gallery-arrow prev" id="galleryPrev" aria-label="上一張">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -609,7 +639,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
-  <div class="gallery-dots" id="galleryDots"></div>
+  <div class="gallery-meta">
+    <div class="gallery-progress"><div class="gallery-progress-bar" id="galleryProgressBar"></div></div>
+    <p class="gallery-counter en"><span id="galleryCurrent">1</span> / <span id="galleryTotal"></span></p>
+  </div>
 </section>
 
 <!-- ============ SEATING CHART ============ -->
@@ -999,25 +1032,25 @@
   (function(){
     var track = document.getElementById('galleryTrack');
     var slides = Array.from(track.children);
-    var dotsWrap = document.getElementById('galleryDots');
     var prevBtn = document.getElementById('galleryPrev');
     var nextBtn = document.getElementById('galleryNext');
+    var progressBar = document.getElementById('galleryProgressBar');
+    var currentLabel = document.getElementById('galleryCurrent');
+    var totalLabel = document.getElementById('galleryTotal');
     var current = 0;
     var timer = null;
 
-    slides.forEach(function(_, i){
-      var dot = document.createElement('button');
-      dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 張');
-      if(i === 0) dot.classList.add('active');
-      dot.addEventListener('click', function(){ goTo(i); resetTimer(); });
-      dotsWrap.appendChild(dot);
-    });
-    var dots = Array.from(dotsWrap.children);
+    totalLabel.textContent = slides.length;
+
+    function updateMeta(){
+      currentLabel.textContent = current + 1;
+      progressBar.style.width = ((current + 1) / slides.length * 100) + '%';
+    }
 
     function goTo(i){
       current = (i + slides.length) % slides.length;
       track.scrollTo({ left: current * track.clientWidth, behavior:'smooth' });
-      dots.forEach(function(d, di){ d.classList.toggle('active', di === current); });
+      updateMeta();
     }
 
     function startTimer(){
@@ -1037,7 +1070,7 @@
       scrollTimeout = setTimeout(function(){
         var i = Math.round(track.scrollLeft / track.clientWidth);
         current = Math.max(0, Math.min(slides.length - 1, i));
-        dots.forEach(function(d, di){ d.classList.toggle('active', di === current); });
+        updateMeta();
       }, 100);
     }, { passive:true });
 
@@ -1051,6 +1084,7 @@
 
     window.addEventListener('resize', function(){ goTo(current); });
 
+    updateMeta();
     startTimer();
   })();
 

@@ -1091,15 +1091,16 @@
   // ---------- Background music: unmute silently on first interaction ----------
   (function(){
     var audio = document.getElementById('bgMusic');
+    var gestureEvents = ['click','mousedown','pointerdown','touchstart','touchend','keydown'];
     function unmuteOnFirstInteraction(){
       audio.muted = false;
       audio.volume = 0.7;
       audio.play();
-      ['click','touchstart','keydown','scroll'].forEach(function(type){
+      gestureEvents.forEach(function(type){
         document.removeEventListener(type, unmuteOnFirstInteraction);
       });
     }
-    ['click','touchstart','keydown','scroll'].forEach(function(type){
+    gestureEvents.forEach(function(type){
       document.addEventListener(type, unmuteOnFirstInteraction, { passive:true });
     });
   })();

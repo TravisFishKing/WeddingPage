@@ -418,7 +418,10 @@
   }
 
   .seating-grid{ max-width:960px; margin:0 auto; }
-  .seating-pairs{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .seating-pairs{
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(5, auto);
+    grid-auto-flow:column; gap:22px;
+  }
 
   .table-card{
     background:var(--card); border-radius:18px; padding:26px 26px 22px;
@@ -446,7 +449,7 @@
   .table-card.has-match{ box-shadow:0 0 0 2px var(--gold), var(--shadow); }
 
   @media (max-width:640px){
-    .seating-pairs{ grid-template-columns:1fr; }
+    .seating-pairs{ grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row; }
   }
 
   /* ================= FOOTER ================= */
@@ -676,14 +679,16 @@
         <span class="table-name">主桌</span>
       </div>
       <ul class="guest-list">
+        <li>陳黃桂枝</li>
+        <li>胡俊雄</li>
         <li>金宗頴</li>
         <li>陳萱宇</li>
         <li>金文祥</li>
         <li>吳婉敏</li>
         <li>陳信名</li>
         <li>胡玉珮</li>
-        <li>賓客姓名 7</li>
-        <li>賓客姓名 8</li>
+        <li>陳弘允</li>
+        <li>黃仙月</li>
       </ul>
     </div>
 
@@ -693,15 +698,15 @@
           <span class="table-name">1 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
+          <li>毛忠清</li>
+          <li>陳淑華</li>
+          <li>毛弈為*2</li>
+          <li>毛亮凱</li>
+          <li>毛國銓</li>
+          <li>陳信州</li>
+          <li>陳湘琪</li>
+          <li>陳嘉黛</li>
+          <li>陳歆穎</li>
         </ul>
       </div>
       <div class="table-card">
@@ -709,15 +714,12 @@
           <span class="table-name">2 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
+          <li>王瑞璜</li>
+          <li>郭貴花</li>
+          <li>王薏婷*2</li>
+          <li>王竣祺*4</li>
+          <li>吳睿嵐</li>
+          <li>林鳳娟</li>
         </ul>
       </div>
       <div class="table-card">
@@ -725,14 +727,12 @@
           <span class="table-name">3 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
+          <li>曾寶蓉*2</li>
+          <li>方銘芬*2</li>
+          <li>李妤*2</li>
+          <li>葉蓁蓁</li>
+          <li>林成學</li>
+          <li>吳恬甄</li>
         </ul>
       </div>
       <div class="table-card">
@@ -740,16 +740,15 @@
           <span class="table-name">4 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
-          <li>賓客姓名 10</li>
+          <li>邱雅欣*2</li>
+          <li>洪子惠</li>
+          <li>黃宜蓁</li>
+          <li>翁瑩樺</li>
+          <li>張詠愛</li>
+          <li>小楊</li>
+          <li>于璨菱</li>
+          <li>蔡欣叡</li>
+          <li>端木君翰</li>
         </ul>
       </div>
       <div class="table-card">
@@ -757,15 +756,16 @@
           <span class="table-name">5 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
+          <li>盧弈赬</li>
+          <li>莊安琦</li>
+          <li>郭倩妤</li>
+          <li>莊宜蓁</li>
+          <li>學年</li>
+          <li>學年</li>
+          <li>學年</li>
+          <li>學年</li>
+          <li>朱芳瑩</li>
+          <li>校長</li>
         </ul>
       </div>
       <div class="table-card">
@@ -813,8 +813,8 @@
           <li>賓客姓名 5</li>
           <li>賓客姓名 6</li>
           <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
+          <li>洪沛志</li>
+          <li>陳重佑</li>
         </ul>
       </div>
       <div class="table-card">
@@ -822,16 +822,11 @@
           <span class="table-name">9 桌</span>
         </div>
         <ul class="guest-list">
-          <li>賓客姓名 1</li>
-          <li>賓客姓名 2</li>
-          <li>賓客姓名 3</li>
-          <li>賓客姓名 4</li>
-          <li>賓客姓名 5</li>
-          <li>賓客姓名 6</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
-          <li>賓客姓名 10</li>
+          <li>黃信瑋*2</li>
+          <li>許鈞凱*2</li>
+          <li>許祐維*2</li>
+          <li>楊皓丞*2</li>
+          <li>高蓓純*2</li>
         </ul>
       </div>
       <div class="table-card">
@@ -839,15 +834,15 @@
           <span class="table-name">10 桌</span>
         </div>
         <ul class="guest-list">
+          <li>陳柏安*2</li>
+          <li>彭正安*2</li>
           <li>李尚軒</li>
-          <li>林晉毅 Jim</li>
-          <li>林晉毅 Jim</li>
           <li>林以軒</li>
-          <li>李昀軒</li>
+          <li>林晉毅</li>
+          <li>彭德馨</li>
           <li>莊崇賢</li>
-          <li>賓客姓名 7</li>
-          <li>賓客姓名 8</li>
-          <li>賓客姓名 9</li>
+          <li>李昀軒</li>
+          <li>劉恬君</li>
         </ul>
       </div>
     </div>

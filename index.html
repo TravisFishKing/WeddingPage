@@ -379,6 +379,14 @@
   .faq-item.open .faq-a{ max-height:200px; padding-bottom:24px; }
 
   /* ================= SEATING CHART ================= */
+  .seating-placeholder{ display:none; max-width:420px; margin:0 auto; text-align:center; }
+  .seating-placeholder .placeholder-text{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem;
+    letter-spacing:.1em; color:var(--green-mid);
+  }
+  #seating.pending .seating-placeholder{ display:block; }
+  #seating.pending .seating-live{ display:none; }
+
   .seating-search{ max-width:420px; margin:0 auto 54px; position:relative; z-index:5; }
   .search-wrap{ position:relative; }
   .search-box{
@@ -472,8 +480,7 @@
   <a href="#timeline" data-label="流程"></a>
   <a href="#family" data-label="家族"></a>
   <a href="#gallery" data-label="相簿"></a>
-  <!-- 桌位表先隱藏，恢復方式見 index.html 的操作說明 -->
-  <!-- <a href="#seating" data-label="桌位表"></a> -->
+  <a href="#seating" data-label="桌位表"></a>
   <a href="#faq" data-label="Q&amp;A"></a>
 </nav>
 
@@ -659,11 +666,25 @@
      依序排列會自動排成「1桌｜2桌／3桌｜4桌…」的兩欄版面。
   4. 想調整桌數，直接複製整個 <div class="table-card">…</div> 區塊增減即可。
 -->
-<!-- 桌位表暫時隱藏：下面 section 標籤加了 style="display:none"，等賓客名單確定後刪掉那段 style 即可恢復顯示 -->
-<section id="seating" style="display:none;">
+<!-- 桌位表暫時顯示「靜待更新」：要恢復正式內容時，把下面 section 標籤上的 class="pending" 拿掉即可 -->
+<section id="seating" class="pending">
   <p class="section-eyebrow reveal">Seating Chart</p>
   <h2 class="section-title reveal">桌位表</h2>
 
+  <div class="seating-placeholder reveal">
+    <div class="branch-divider">
+      <svg viewBox="0 0 120 30" fill="none" class="leaf-sway">
+        <path d="M2 15 C 30 5, 90 5, 118 15" stroke="#B9C7A9" stroke-width="1.2"/>
+        <ellipse cx="24" cy="10" rx="6" ry="3" fill="#9CB08A" transform="rotate(-25 24 10)"/>
+        <ellipse cx="46" cy="7" rx="6" ry="3" fill="#9CB08A" transform="rotate(-10 46 7)"/>
+        <ellipse cx="70" cy="7" rx="6" ry="3" fill="#9CB08A" transform="rotate(10 70 7)"/>
+        <ellipse cx="94" cy="10" rx="6" ry="3" fill="#9CB08A" transform="rotate(25 94 10)"/>
+      </svg>
+    </div>
+    <p class="placeholder-text">桌位表靜待更新，敬請期待</p>
+  </div>
+
+  <div class="seating-live">
   <div class="seating-search reveal">
     <div class="search-wrap">
       <div class="search-box">
@@ -850,6 +871,7 @@
         </ul>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
